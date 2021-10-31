@@ -125,36 +125,40 @@ class Loginer {
   }
 
   async doFastLogin(uname, password) {
-    // let net = new Net("https://passport2.chaoxing.com/")
-    let net = new Net("https://passport2-api.chaoxing.com/");
-    let info = await net.get(
-      `/v11/loginregister`,
-      {
-        uname: uname,
-        code: password,
-      },
-      true
-    );
+        let net = new Net("https://passport2.chaoxing.com/")
+        let info = await net.post(
+            `fanyalogin`, {
+                'fid': -1,
+                'uname': uname,
+                'password': new Buffer(password, 'utf8').toString('base64'),
+                'refer': "http%3A%2F%2Fi.chaoxing.com",
+                't': true,
+                'forbidotherlogin': 0
+            },
+            true
+        );
 
-    try {
-      info = JSON.parse(info);
-      if (!info.status) {
-        if (info.mes === "用户名或密码错误") {
-          console.log(info.mes);
-          process.exit(0);
+        try {
+            info = JSON.parse(info);
+            if (!info.status) {
+                if (info.msg2) {
+                    let msg = info.msg2;
+                    msg = ("密码错误" == msg || "用户名或密码错误" == msg) ? "手机号或密码错误" : msg;
+                    console.log(msg);
+                    process.exit(0);
+                }
+                return info;
+            }
+
+            this.net.jar = net.jar;
+
+            let ck = await this.net.getCookies();
+            return true;
+        } catch (e) {
+            // console.log(info);
+            return { success: false, errorMsg: "API返回了错误的值" };
         }
-        return info;
-      }
-
-      this.net.jar = net.jar;
-
-      let ck = await this.net.getCookies();
-      return true;
-    } catch (e) {
-      // console.log(info);
-      return { success: false, errorMsg: "API返回了错误的值" };
     }
-  }
 
   async doLogin(uname, password, numcode) {
     //返回成功或失败

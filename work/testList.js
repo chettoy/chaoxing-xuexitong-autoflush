@@ -1,6 +1,6 @@
-let cheerio = require("cheerio");
-let quesbank = require("../bank/quesbank.js");
-let path = require("path");
+import cheerio from "cheerio";
+import quesbank from "../bank/quesbank.js";
+import path from "path";
 
 class TestList {
   constructor(courseid, chapterid, classid, job, user) {
@@ -12,10 +12,8 @@ class TestList {
   }
   async getWorkEnt() {
     let raw = await this.user.net.rawGet(
-      `api/work?api=1&workId=${this.job.property.workid}&jobid=${
-        this.job.jobid ? this.job.jobid : ""
-      }&needRedirect=true&knowledgeid=${this.chapterid}&ut=s&clazzId=${
-        this.classid
+      `api/work?api=1&workId=${this.job.property.workid}&jobid=${this.job.jobid ? this.job.jobid : ""
+      }&needRedirect=true&knowledgeid=${this.chapterid}&ut=s&clazzId=${this.classid
       }&type=&enc=${this.job.enc}&courseid=${this.courseid}`
     );
     let $ = cheerio.load(raw);
@@ -317,28 +315,28 @@ class TestList {
     //1为选择题,2为填空题,3为判断题,4为主观题,5为多选题
     //let type=1;
     /*if(ques.find("questionErrorForm1").attr("id")=="questionErrorForm1")
-					type=1;
-			
-			else if(ques.find(".font14").eq(0).attr("class")=="font14")
-			{		
-				if(status==2)
-					type=4;
-				else
-					type=2;
+          type=1;
+    	
+      else if(ques.find(".font14").eq(0).attr("class")=="font14")
+      {		
+        if(status==2)
+          type=4;
+        else
+          type=2;
 
-			}
-			else if(ques.find(".Py_tk").attr("class")=="Py_tk")
-			{
-				if(ques.find(".Py_tk").eq(0).find(".ri").length>0)
-					type=3;
-				else
-					type=4;
+      }
+      else if(ques.find(".Py_tk").attr("class")=="Py_tk")
+      {
+        if(ques.find(".Py_tk").eq(0).find(".ri").length>0)
+          type=3;
+        else
+          type=4;
 
-			}
-			else if(ques.find(".font20").attr("class")=="font20")
-					type=3;
-			else if(ques.find(".Zy_ulTk").attr("class")=="Zy_ulTk")
-					type=4;*/
+      }
+      else if(ques.find(".font20").attr("class")=="font20")
+          type=3;
+      else if(ques.find(".Zy_ulTk").attr("class")=="Zy_ulTk")
+          type=4;*/
     if (title.indexOf("【单选题】") != -1) return 1;
     else if (title.indexOf("【填空题】") != -1) return 2;
     else if (title.indexOf("【判断题】") != -1) return 3;
@@ -433,4 +431,4 @@ class TestList {
   }
 }
 
-module.exports = TestList;
+export default TestList;

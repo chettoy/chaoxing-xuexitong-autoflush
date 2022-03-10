@@ -1,6 +1,7 @@
-var sleep = (t) => new Promise((y) => setTimeout(y, t));
-var Player = require("./player.js");
-var testList = require("./work/testList.js");
+import Player from "./player.js";
+import TestList from "./work/testList.js";
+
+const sleep = (t) => new Promise((y) => setTimeout(y, t));
 
 class jobTask {
   constructor(classid, chapter, jobs, user, playerspeed, autotest) {
@@ -66,7 +67,7 @@ class jobTask {
         }
         break;
       case "workid": //测验
-        let list = new testList(
+        let list = new TestList(
           this.chapter.courseid,
           this.chapter.id,
           this.clazzId,
@@ -109,4 +110,4 @@ class jobTask {
   }
 }
 
-module.exports = jobTask;
+export default jobTask;

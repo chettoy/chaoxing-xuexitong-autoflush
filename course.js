@@ -1,5 +1,5 @@
-var cheerio = require("cheerio");
-var Net = require("./net.js");
+import cheerio from "cheerio";
+
 class Course {
   constructor(classId, courseid, user) {
     this.user = user;
@@ -135,4 +135,4 @@ class Course {
   }
 }
 
-module.exports = Course;
+export default Course;

@@ -4,13 +4,12 @@ console.log("邮箱: yuxon@qq.com");
 console.log("\n");
 console.log("本作品仅提供学习及研究程序原理用途\n\n");
 
-const fs = require("fs");
-let Loginer = require("./loginer.js");
-let task = require("./courseTask.js");
-let prompt = require("prompts");
-let coursepicker = require("./coursepicker.js");
-let Net = require("./net.js");
-let Config = require("./config.js");
+import Loginer from "./loginer.js";
+import task from "./courseTask.js";
+import prompt from "prompts";
+import coursepicker from "./coursepicker.js";
+import Net from "./net.js";
+import Config from "./config.js";
 
 async function getUser(cookie) {
 	let domain = "https://mooc1-1.chaoxing.com/";

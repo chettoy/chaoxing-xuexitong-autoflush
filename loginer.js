@@ -1,8 +1,10 @@
-let fs = require("fs");
-let open = require("open");
-let prompt = require("prompts");
-let cheerio = require("cheerio");
-let Net = require("./net.js");
+import fs from "fs";
+import prompt from "prompts";
+import Net from "./net.js";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 class Loginer {
   //登录器
@@ -198,4 +200,4 @@ class Loginer {
   }
 }
 
-module.exports = Loginer;
+export default Loginer;

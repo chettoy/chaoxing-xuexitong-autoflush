@@ -1,9 +1,7 @@
-var url = require("url");
-var qs = require("querystring");
+import url from "url";
+import fetch from "node-fetch";
+import { Cookie, Store, CookieJar } from "tough-cookie";
 
-var { Cookie, Store, CookieJar } = require("tough-cookie");
-
-var fetch = require("node-fetch");
 class Net {
   constructor(host) {
     let parsed = url.parse(host);
@@ -66,7 +64,7 @@ class Net {
       if (res.headers.has("set-cookie"))
         await this.setCookie(res.headers.get("set-cookie"));
 
-    return res.buffer();
+    return res.arrayBuffer();
   }
   async post(page, query, savecookie) {
     if (!query) query = {};
@@ -106,7 +104,7 @@ Net.parseCookies = function (cookies) {
 Net.UserAgent =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36";
 
-module.exports = Net;
+export default Net;
 
 //let net=new Net("http://www.baidu.com/");
 

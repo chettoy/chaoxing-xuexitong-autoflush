@@ -1,4 +1,4 @@
-const fs = require("fs");
+import fs from "fs";
 
 class Config {
 	constructor(path) {
@@ -58,4 +58,4 @@ class Config {
 	}
 }
 
-module.exports = Config;
+export default Config;

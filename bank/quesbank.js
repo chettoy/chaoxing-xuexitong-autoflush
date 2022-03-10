@@ -2,7 +2,7 @@
 题库是一个人人为我，我为人人的分享P2P机制
 
 */
-let Net = require("../net.js");
+import Net from "../net.js";
 
 class QuesBank {
   constructor() {
@@ -46,4 +46,4 @@ class QuesBank {
   }
 }
 
-module.exports = QuesBank;
+export default QuesBank;

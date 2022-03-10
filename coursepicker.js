@@ -1,8 +1,9 @@
-var sleep = (t) => new Promise((y) => setTimeout(y, t));
-var CourseList = require("./courselist.js");
-let Table = require("tty-table");
-let prompt = require("prompts");
-let { LiveContainer, LiveArea } = require("clui-live");
+import CourseList from './courselist.js';
+import Table from "tty-table";
+import prompt from "prompts";
+import { LiveContainer, LiveArea } from "clui-live";
+
+const sleep = (t) => new Promise((y) => setTimeout(y, t));
 
 class CoursePicker {
   constructor(user) {
@@ -134,4 +135,4 @@ class CoursePicker {
   }
 }
 
-module.exports = CoursePicker;
+export default CoursePicker;

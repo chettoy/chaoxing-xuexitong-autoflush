@@ -12,12 +12,14 @@ class CoursePicker {
 
     this.gui = new LiveContainer();
     this.gui_area = this.gui.createLiveArea();
+
+    this.default_picked = false;
   }
   async getAllCourses() {
     this.list = await new CourseList(this.user).getList();
   }
   toggle(clazzid) {
-    if (!this.pickinfos[clazzid]) this.pickinfos[clazzid] = { picked: true };
+    if (!this.pickinfos[clazzid]) this.pickinfos[clazzid] = { picked: this.default_picked };
 
     this.pickinfos[clazzid].picked = !this.pickinfos[clazzid].picked;
   }
@@ -40,7 +42,7 @@ class CoursePicker {
 
     let built = [];
     for (let i in this.list) {
-      let info = this.pickinfos[this.list[i].clazzId] || { picked: true };
+      let info = this.pickinfos[this.list[i].clazzId] || { picked: this.default_picked };
       built.push([
         i,
         this.list[i].courseId,
@@ -95,7 +97,7 @@ class CoursePicker {
 
         let built = [];
         for (let i in this.list) {
-          let info = this.pickinfos[this.list[i].clazzId] || { picked: true };
+          let info = this.pickinfos[this.list[i].clazzId] || { picked: this.default_picked };
           built.push([
             i,
             this.list[i].courseId,
@@ -125,7 +127,7 @@ class CoursePicker {
 
     let picks = [];
     for (let i in this.list) {
-      let info = this.pickinfos[this.list[i].clazzId] || { picked: true };
+      let info = this.pickinfos[this.list[i].clazzId] || { picked: this.default_picked };
       if (info.picked) picks.push(this.list[i]);
     }
     return picks;

@@ -1,8 +1,10 @@
-let fs = require("fs");
-let open = require("open");
-let prompt = require("prompts");
-let cheerio = require("cheerio");
-let Net = require("./net.js");
+import fs from "fs";
+import prompt from "prompts";
+import Net from "./net.js";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 class Loginer {
   //登录器
@@ -125,22 +127,26 @@ class Loginer {
   }
 
   async doFastLogin(uname, password) {
-    // let net = new Net("https://passport2.chaoxing.com/")
-    let net = new Net("https://passport2-api.chaoxing.com/");
-    let info = await net.get(
-      `/v11/loginregister`,
-      {
-        uname: uname,
-        code: password,
-      },
+    let net = new Net("https://passport2.chaoxing.com/")
+    let info = await net.post(
+      `fanyalogin`, {
+      'fid': -1,
+      'uname': uname,
+      'password': Buffer.from(password, 'utf8').toString('base64'),
+      'refer': "http%3A%2F%2Fi.chaoxing.com",
+      't': true,
+      'forbidotherlogin': 0
+    },
       true
     );
 
     try {
       info = JSON.parse(info);
       if (!info.status) {
-        if (info.mes === "用户名或密码错误") {
-          console.log(info.mes);
+        if (info.msg2) {
+          let msg = info.msg2;
+          msg = ("密码错误" == msg || "用户名或密码错误" == msg) ? "手机号或密码错误" : msg;
+          console.log(msg);
           process.exit(0);
         }
         return info;
@@ -194,4 +200,4 @@ class Loginer {
   }
 }
 
-module.exports = Loginer;
+export default Loginer;

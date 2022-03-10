@@ -1,6 +1,6 @@
-var cheerio = require("cheerio");
-var url = require("url");
-var qs = require("querystring");
+import cheerio from "cheerio";
+import url from "url";
+import qs from "querystring";
 
 class courselist {
   constructor(user) {
@@ -37,4 +37,4 @@ class courselist {
   }
 }
 
-module.exports = courselist;
+export default courselist;

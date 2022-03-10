@@ -1,8 +1,9 @@
-var sleep = (t) => new Promise((y) => setTimeout(y, t));
-var CourseList = require("./courselist.js");
-let Table = require("tty-table");
-let prompt = require("prompts");
-let { LiveContainer, LiveArea } = require("clui-live");
+import CourseList from './courselist.js';
+import Table from "tty-table";
+import prompt from "prompts";
+import { LiveContainer, LiveArea } from "clui-live";
+
+const sleep = (t) => new Promise((y) => setTimeout(y, t));
 
 class CoursePicker {
   constructor(user) {
@@ -12,12 +13,14 @@ class CoursePicker {
 
     this.gui = new LiveContainer();
     this.gui_area = this.gui.createLiveArea();
+
+    this.default_picked = false;
   }
   async getAllCourses() {
     this.list = await new CourseList(this.user).getList();
   }
   toggle(clazzid) {
-    if (!this.pickinfos[clazzid]) this.pickinfos[clazzid] = { picked: true };
+    if (!this.pickinfos[clazzid]) this.pickinfos[clazzid] = { picked: this.default_picked };
 
     this.pickinfos[clazzid].picked = !this.pickinfos[clazzid].picked;
   }
@@ -40,7 +43,7 @@ class CoursePicker {
 
     let built = [];
     for (let i in this.list) {
-      let info = this.pickinfos[this.list[i].clazzId] || { picked: true };
+      let info = this.pickinfos[this.list[i].clazzId] || { picked: this.default_picked };
       built.push([
         i,
         this.list[i].courseId,
@@ -95,7 +98,7 @@ class CoursePicker {
 
         let built = [];
         for (let i in this.list) {
-          let info = this.pickinfos[this.list[i].clazzId] || { picked: true };
+          let info = this.pickinfos[this.list[i].clazzId] || { picked: this.default_picked };
           built.push([
             i,
             this.list[i].courseId,
@@ -125,11 +128,11 @@ class CoursePicker {
 
     let picks = [];
     for (let i in this.list) {
-      let info = this.pickinfos[this.list[i].clazzId] || { picked: true };
+      let info = this.pickinfos[this.list[i].clazzId] || { picked: this.default_picked };
       if (info.picked) picks.push(this.list[i]);
     }
     return picks;
   }
 }
 
-module.exports = CoursePicker;
+export default CoursePicker;

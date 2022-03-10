@@ -1,8 +1,8 @@
-var sleep = (t) => new Promise((y) => setTimeout(y, t));
-var Net = require("./net.js");
-var chapterTask = require("./chapterTask.js");
-var Course = require("./course.js");
-var { LiveContainer, LiveArea } = require("clui-live");
+import chapterTask from './chapterTask.js';
+import Course from './course.js';
+import { LiveContainer, LiveArea } from "clui-live";
+
+const sleep = (t) => new Promise((y) => setTimeout(y, t));
 
 class courseTask {
   constructor(courses, user, speed, autotest) {
@@ -34,10 +34,10 @@ class courseTask {
     let lines = this.current.getGUI();
     lines.unshift(
       "当前课程:" +
-        (this.current_course ? this.current_course.title : "无") +
-        " 下一个课程:" +
-        (nextcourse ? nextcourse.title : "无") +
-        "\n"
+      (this.current_course ? this.current_course.title : "无") +
+      " 下一个课程:" +
+      (nextcourse ? nextcourse.title : "无") +
+      "\n"
     );
 
     if (lines.length < minheight)
@@ -94,4 +94,4 @@ class courseTask {
   }
 }
 
-module.exports = courseTask;
+export default courseTask;

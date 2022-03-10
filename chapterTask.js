@@ -1,6 +1,7 @@
-var sleep = (t) => new Promise((y) => setTimeout(y, t));
-let Course = require("./course.js");
-let jobTask = require("./jobTask.js");
+import Course from "./course.js";
+import jobTask from "./jobTask.js";
+
+const sleep = (t) => new Promise((y) => setTimeout(y, t));
 
 function reduceTree(tree, lvl) {
   if (!lvl) lvl = 0;
@@ -58,11 +59,11 @@ class chapterTask {
       if (iscurrent) focus = i;
       built.push(
         "      ".repeat(this.rawchapters[i].lvl) +
-          this.rawchapters[i].title +
-          " " +
-          (iscurrent ? "  <-  " : "") +
-          " " +
-          (this.rawchapters[i].tipinfo || "")
+        this.rawchapters[i].title +
+        " " +
+        (iscurrent ? "  <-  " : "") +
+        " " +
+        (this.rawchapters[i].tipinfo || "")
       );
     }
     let offset = 10;
@@ -148,7 +149,7 @@ class chapterTask {
   }
 }
 
-module.exports = chapterTask;
+export default chapterTask;
 
 /*
 var Net=require("./net.js");
@@ -158,8 +159,8 @@ let courselist=require("./courselist.js");
 
 (async()=>{
 let user={
- 	userid:"94374572",
- 	net
+    userid:"94374572",
+    net
  };
 
 let classid="13132734";

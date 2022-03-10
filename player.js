@@ -1,5 +1,5 @@
-var sleep = (t) => new Promise((y) => setTimeout(y, t));
-var Logger = require("./logger.js");
+import Logger from "./logger.js";
+const sleep = (t) => new Promise((y) => setTimeout(y, t));
 
 class Player {
   constructor(classid, user, video, speed) {
@@ -28,7 +28,7 @@ class Player {
       await sleep(500);
     }
   }
-  async init() {}
+  async init() { }
   getStatusInfo() {
     return this.statusinfo + "\n\n";
   }
@@ -48,7 +48,7 @@ class Player {
     let status = JSON.parse(
       await this.user.net.rawGet(
         `ananas/status/${this.playing.objectId}?k=9790&flag=normal&_dc=` +
-          new Date().getTime()
+        new Date().getTime()
       )
     );
 
@@ -81,7 +81,7 @@ class Player {
     }
     try {
       if (JSON.parse(reportinfo).isPassed == true) this.end = true;
-    } catch (e) {}
+    } catch (e) { }
 
     //if(this.tick++%10==0)
     this.statusinfo =
@@ -111,4 +111,4 @@ class Player {
   }
 }
 
-module.exports = Player;
+export default Player;
